@@ -28,6 +28,8 @@
   "homepage": "https://github.com/ko4la07/LIM015-md-links#readme",
   "dependencies": {
     "eslint": "^7.32.0",
-    "jest": "^27.0.6"
+    "jest": "^27.0.6",
+    "marked": "^3.0.0",
+    "node-fetch": "^2.6.1"
   }
 }
