@@ -1,12 +1,12 @@
 // const http = require('http');
 const fs = require('fs');
 const path = require('path');
-const marked = require('marked');
+// const marked = require('marked');
 const fetch = require('node-fetch');
 
 // read a file
 const readPathFile = (route) => fs.readFileSync(route).toString();
-// console.log(fs.readFileSync('./sample1.md').toString());
+// console.log(readPathFile('./samples2/sample1.md'));
 
 // read a directory
 const readDir = (route) => fs.readdirSync(route);
@@ -72,31 +72,83 @@ const searchMdPaths = (iPath) => {
 };
 // console.log(searchMdPaths('../samples'));
 
-// Search links into files .md
-const searchLinks = (iPath) => {
-  const renderer = new marked.Renderer();
-  const arrayLinks = [];
-  const arrayPathsMd = searchMdPaths(iPath);
-  arrayPathsMd.forEach((file) => {
-    renderer.link = (href, title, text) => {
-      const element = {
-        href, text, file
-      };
-      arrayLinks.push(element);
-    };
-    marked(readPathFile(file), { renderer });
-  });
-  return arrayLinks;
-};
+// Searching links into files .md with marked - renderer
+// const searchLinks = (iPath) => {
+//   const renderer = new marked.Renderer();
+//   const arrayLinks = [];
+//   const arrayPathsMd = searchMdPaths(iPath);
+//   arrayPathsMd.forEach((file) => {
+//     renderer.link = (href, title, text) => {
+//       const element = {
+//         href, text, file
+//       };
+//       arrayLinks.push(element);
+//     };
+//     marked(readPathFile(file), { renderer });
+//   });
+//   return arrayLinks;
+// };
 // console.log(searchLinks('C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\src\\samples2\\sample1.md'));
 
-const url = 'https://openclassrooms.com/en/courses/4309531-descubre-las-funciones-en-javascript/5108986-diferencia-entre-expresion-y-sentencia';
-fetch(url)
-  // .then(res=>{return res.json();})
-  .then(data=>{console.log(data.url, data.status);})
-  .catch(err => {console.log(err);});
+// Searching links into files .md with regex
+const searchingLinks = (iPath) => {
+  const regex = new RegExp(/\[([\w\s\d.|()À-ÿ]+)\]\([?:\/|https?:?\/\/]+[\w\d\s./?=#-&_%~,\-.:]+\)/, 'gim'); // /\[([^\]]+)]\(([^()]+)\)/g
+  const regexText = new RegExp(/\[([\w\s\d.|À-ÿ()]+)\]/, 'gim'); // /\[([^\]]+)]/g
+  const regexLink =  new RegExp(/\(((?:\/|https?:\/\/)[\w\d\s./?=#&_%~,\-.:]+)\)/, 'gim'); // /\(([^()]+)\)/g
+  const rutaString = readPathFile(iPath);
+  const resultado = rutaString.match(regex);
+  const resultArray = [];
+  let i = 0;
+  while (i < resultado.length ) {
+    const resultText = resultado[i].match(regexText).join();
+    const resultLink = resultado[i].match(regexLink).join();
+    const objRes = {
+      href: resultText.substring(1,resultText.length - 1),
+      text: resultLink.substring(1,resultLink.length - 1),
+      link: iPath
+    };
+    i = i + 1;
+    resultArray.push(objRes);
+  }
+  return resultArray;
+};
+// console.log(searchingLinks('C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\src\\samples2\\sample1.md'));
+
+// Http request
+const requestHttp = (linkObj) => {
+  const fetchData = fetch(linkObj.href)
+    .then((data) => {
+      const objRes = {
+        href: linkObj.href,
+        text: linkObj.text,
+        link: linkObj.link,
+        status: data.status,
+        statusResponse: data.status > 199 && data.status < 400 ? 'ok' : 'fail',
+      };
+      return objRes;
+    })
+    .catch((error) => {
+      const objRes = {
+        href: linkObj.href,
+        text: linkObj.text,
+        link: linkObj.link,
+        status: 'There was a problem with the Fetch request:' + error,
+        statusResponse: 'fail',
+      };
+      return objRes;
+    });
+  return fetchData;
+};
+links = [{ href:'https://www.google.com/', text:'hola google', link:'google' }, { href:'https://openclassrooms.com/en/courses/4309531-descubre-las-funciones-en-javascript/5108986-diferencia-entre-expresion-y-sentencia', text:'hola Openclassrooms', link:'Openclassrooms' }];
+
+// console.log(requestHttp({ href:'https://www.google.com/', text:'hola google', link:'google' })); // retorna promesa
+
+// Imprimiendo el resultado despues de que se resuelve la promesa
+// Promise.all(links.map((link) => requestHttp(link)))
+//   .then(res => console.log(res));
 
 // Creating a server
+// const html = fs.readFileSync('C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\README.md');
 // http.createServer(function(req,res) {
 //   res.write(html);
 //   res.end();
@@ -111,5 +163,7 @@ module.exports = {
   validatePath,
   isFile,
   isMd,
-  searchMdPaths
+  searchMdPaths,
+  searchingLinks,
+  requestHttp
 };

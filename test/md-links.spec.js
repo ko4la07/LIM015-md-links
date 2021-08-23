@@ -1,4 +1,4 @@
-const { pathExist, validatePath, isFile, isMd, searchMdPaths } = require('../src/index.js');
+const { pathExist, validatePath, isFile, isMd, searchMdPaths, searchingLinks } = require('../src/index.js');
 
 // ----------Test exist path----------
 describe('Check if the path exists', () => {
@@ -64,6 +64,33 @@ describe('Searching markdown routes', () => {
       'C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\samples\\sample2.md'
     ];
     expect(searchMdPaths('./samples')).toEqual(resArray);
+  });
+});
+
+// ---------test Searching links into files .md with regex-------
+describe('Searching links into markdown files', () => {
+  test('It should be a function', () => {
+    expect(typeof searchingLinks).toBe('function');
+  });
+  it('It should return an array of objects with 3 properties: href, text, link', () => {
+    const resultArray = [
+      {
+        href: 'Google',
+        text: 'https://www.google.com',
+        link: 'C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\src\\samples2\\sample1.md'
+      },
+      {
+        href: 'stackoverflow',
+        text: 'https://es.stackoverflow.com',
+        link: 'C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\src\\samples2\\sample1.md'
+      },
+      {
+        href: 'Google',
+        text: 'https://www.google.com',
+        link: 'C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\src\\samples2\\sample1.md'
+      }
+    ];
+    expect(searchingLinks('C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\src\\samples2\\sample1.md')).toEqual(resultArray);
   });
 });
 
