@@ -75,19 +75,19 @@ describe('Searching links into markdown files', () => {
   it('It should return an array of objects with 3 properties: href, text, link', () => {
     const resultArray = [
       {
-        href: 'Google',
-        text: 'https://www.google.com',
-        link: 'C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\src\\samples2\\sample1.md'
+        href: 'https://www.google.com',
+        text: 'Google',
+        file: 'C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\src\\samples2\\sample1.md'
       },
       {
-        href: 'stackoverflow',
-        text: 'https://es.stackoverflow.com',
-        link: 'C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\src\\samples2\\sample1.md'
+        href: 'https://es.stackoverflow.com',
+        text: 'stackoverflow',
+        file: 'C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\src\\samples2\\sample1.md'
       },
       {
-        href: 'Google',
-        text: 'https://www.google.com',
-        link: 'C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\src\\samples2\\sample1.md'
+        href: 'https://www.google.com',
+        text: 'Google',
+        file: 'C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\src\\samples2\\sample1.md'
       }
     ];
     expect(searchingLinks('C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\src\\samples2\\sample1.md')).toEqual(resultArray);

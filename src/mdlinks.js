@@ -1,24 +1,22 @@
 const functions = require('./index.js');
 
-const mdLinks = (path) => {
-  return functions.readPathFile(path);
+const mdLinks = (iPath, options = {}) => {
+  if (!functions.pathExist(iPath)) {
+    throw new Error('Invalid path');
+  } else {
+    return new Promise( (resolve) => {
+      if (options.validate === false || typeof(options) === 'undefined' ) {
+        resolve(functions.searchingLinks(iPath));
+      } else if (options.validate === true) {
+        Promise.all(functions.searchingLinks(iPath).map((objLink) => functions.requestHttp(objLink)))
+          .then(res => resolve(res));
+      }
+    });
+  }
 };
 
-// Examples read file
-// const res1 = mdLinks('.\\samples2\\sample1.md');
-// console.log(res1);
-// const res2 = mdLinks('../samples/sample2.md');
-// console.log(res2);
-// const res3 = mdLinks('../samples/sample3.txt');
-// console.log(res3);
+// mdLinks('../samples').then((res) => console.log(res));
+mdLinks('./samples2',{ validate: true }).then((res) => console.log(res));
+// mdLinks('../samples',{ validate: true }).then((res) => console.log(res));
 
-// Examples read a directory of a relative path
-// const resFiles1 = functions.readDir('../samples');
-// console.log(resFiles1);
-
-// const resFiles2 = functions.readDir('./samples2');
-// console.log(resFiles2);
-
-// Examples read a directory of a absolute path
-// const resFiles3 = functions.readDir('C:/Users/dayan/Desktop/Proyectos/Laboratoria/LIM015-md-links/src/samples2');
-// console.log(resFiles3);
+module.exports = { mdLinks };

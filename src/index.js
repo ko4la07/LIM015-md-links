@@ -1,7 +1,7 @@
 // const http = require('http');
 const fs = require('fs');
 const path = require('path');
-// const marked = require('marked');
+const marked = require('marked');
 const fetch = require('node-fetch');
 
 // read a file
@@ -14,7 +14,7 @@ const readDir = (route) => fs.readdirSync(route);
 // console.log(readDir('C:/Users/dayan/Desktop/Proyectos/Laboratoria/LIM015-md-links/src/samples2'));
 
 // Chech if a path exists
-const pathExist = (pathRoute) => fs.existsSync(pathRoute);
+const pathExist = (pathRoute) => fs.existsSync(pathRoute); // boolean
 // const resExist = pathExist('C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\src\\samples2');
 // const resExist = pathExist('../samples');
 // console.log(resExist);
@@ -73,46 +73,51 @@ const searchMdPaths = (iPath) => {
 // console.log(searchMdPaths('../samples'));
 
 // Searching links into files .md with marked - renderer
-// const searchLinks = (iPath) => {
-//   const renderer = new marked.Renderer();
-//   const arrayLinks = [];
-//   const arrayPathsMd = searchMdPaths(iPath);
-//   arrayPathsMd.forEach((file) => {
-//     renderer.link = (href, title, text) => {
-//       const element = {
-//         href, text, file
-//       };
-//       arrayLinks.push(element);
-//     };
-//     marked(readPathFile(file), { renderer });
-//   });
-//   return arrayLinks;
-// };
-// console.log(searchLinks('C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\src\\samples2\\sample1.md'));
-
-// Searching links into files .md with regex
 const searchingLinks = (iPath) => {
-  const regex = new RegExp(/\[([\w\s\d.|()À-ÿ]+)\]\([?:\/|https?:?\/\/]+[\w\d\s./?=#-&_%~,\-.:]+\)/, 'gim'); // /\[([^\]]+)]\(([^()]+)\)/g
-  const regexText = new RegExp(/\[([\w\s\d.|À-ÿ()]+)\]/, 'gim'); // /\[([^\]]+)]/g
-  const regexLink =  new RegExp(/\(((?:\/|https?:\/\/)[\w\d\s./?=#&_%~,\-.:]+)\)/, 'gim'); // /\(([^()]+)\)/g
-  const rutaString = readPathFile(iPath);
-  const resultado = rutaString.match(regex);
-  const resultArray = [];
-  let i = 0;
-  while (i < resultado.length ) {
-    const resultText = resultado[i].match(regexText).join();
-    const resultLink = resultado[i].match(regexLink).join();
-    const objRes = {
-      href: resultText.substring(1,resultText.length - 1),
-      text: resultLink.substring(1,resultLink.length - 1),
-      link: iPath
+  const renderer = new marked.Renderer();
+  const arrayLinks = [];
+  const arrayPathsMd = searchMdPaths(iPath);
+  arrayPathsMd.forEach((file) => {
+    renderer.link = (href, title, text) => {
+      const element = {
+        href, text, file
+      };
+      arrayLinks.push(element);
     };
-    i = i + 1;
-    resultArray.push(objRes);
-  }
-  return resultArray;
+    marked(readPathFile(file), { renderer });
+  });
+  return arrayLinks;
 };
 // console.log(searchingLinks('C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\src\\samples2\\sample1.md'));
+// console.log(searchingLinks('.\\samples2\\sample1.md'));
+
+// Searching links into files .md with regex
+// const searchingLinks = (iPath) => {
+//   const arrayPathsMd = searchMdPaths(iPath);
+//   const regex = new RegExp(/\[([\w\s\d.|()À-ÿ]+)\]\([?:\/|https?:?\/\/]+[\w\d\s./?=#-&_%~,\-.:]+\)/, 'gim'); // /\[([^\]]+)]\(([^()]+)\)/g
+//   const regexText = new RegExp(/\[([\w\s\d.|À-ÿ()]+)\]/, 'gim'); // /\[([^\]]+)]/g
+//   const regexLink =  new RegExp(/\(((?:\/|https?:\/\/)[\w\d\s./?=#&_%~,\-.:]+)\)/, 'gim'); // /\(([^()]+)\)/g
+//   const resultArray = [];
+//   arrayPathsMd.map( (pathMd) => {
+//     const rutaString = readPathFile(pathMd);
+//     const resultado = rutaString.match(regex);
+//     // const resultArray = [];
+//     let i = 0;
+//     while (i < resultado.length ) {
+//       const resultText = resultado[i].match(regexText).join();
+//       const resultLink = resultado[i].match(regexLink).join();
+//       const objRes = {
+//         href: resultLink.substring(1,resultLink.length - 1),
+//         text: resultText.substring(1,resultText.length - 1),
+//         file: pathMd
+//       };
+//       i = i + 1;
+//       resultArray.push(objRes);
+//     }
+//   });
+//   return resultArray;
+// };
+// console.log(searchingLinks('.\\samples2\\sample1.md'));
 
 // Http request
 const requestHttp = (linkObj) => {
@@ -120,8 +125,8 @@ const requestHttp = (linkObj) => {
     .then((data) => {
       const objRes = {
         href: linkObj.href,
-        text: linkObj.text,
-        link: linkObj.link,
+        text: linkObj.text.substring(0,50),
+        file: linkObj.file,
         status: data.status,
         statusResponse: data.status > 199 && data.status < 400 ? 'ok' : 'fail',
       };
@@ -130,8 +135,8 @@ const requestHttp = (linkObj) => {
     .catch((error) => {
       const objRes = {
         href: linkObj.href,
-        text: linkObj.text,
-        link: linkObj.link,
+        text: linkObj.text.substring(0,50),
+        file: linkObj.file,
         status: 'There was a problem with the Fetch request:' + error,
         statusResponse: 'fail',
       };
@@ -139,7 +144,7 @@ const requestHttp = (linkObj) => {
     });
   return fetchData;
 };
-links = [{ href:'https://www.google.com/', text:'hola google', link:'google' }, { href:'https://openclassrooms.com/en/courses/4309531-descubre-las-funciones-en-javascript/5108986-diferencia-entre-expresion-y-sentencia', text:'hola Openclassrooms', link:'Openclassrooms' }];
+links = [{ href:'https://www.google.com/', text:'hola google', file:'google' }, { href:'https://openclassrooms.com/en/courses/4309531-descubre-las-funciones-en-javascript/5108986-diferencia-entre-expresion-y-sentencia', text:'hola Openclassrooms', file:'Openclassrooms' }];
 
 // console.log(requestHttp({ href:'https://www.google.com/', text:'hola google', link:'google' })); // retorna promesa
 
