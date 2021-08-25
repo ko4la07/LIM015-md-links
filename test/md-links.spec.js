@@ -1,4 +1,4 @@
-const { pathExist, validatePath, isFile, isMd, searchMdPaths, searchingLinks } = require('../src/index.js');
+const { pathExist, validatePath, isFile, isMd, searchMdPaths, searchingLinks, requestHttp } = require('../src/index.js');
 
 // ----------Test exist path----------
 describe('Check if the path exists', () => {
@@ -91,6 +91,43 @@ describe('Searching links into markdown files', () => {
       }
     ];
     expect(searchingLinks('C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\src\\samples2\\sample1.md')).toEqual(resultArray);
+  });
+});
+
+// ---------test HTTP REQUEST-------
+describe('Http request', () => {
+  test('It should be a function', () => {
+    expect(typeof requestHttp).toBe('function');
+  });
+  it('It should return an array of objects with 3 properties: href, text, file', () => {
+    const inputObject = {
+      href: 'https://openclassrooms.com/en/courses/4309531-descubre-las-funciones-en-javascript/5108986-diferencia-entre-expresion-y-sentencia',
+      text: 'Openclassrooms',
+      file: 'C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\samples\\sample2.md'
+    };
+    const resultObject = {
+      href: 'https://openclassrooms.com/en/courses/4309531-descubre-las-funciones-en-javascript/5108986-diferencia-entre-expresion-y-sentencia',
+      text: 'Openclassrooms',
+      file: 'C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\samples\\sample2.md',
+      status: 410,
+      statusResponse: 'fail'
+    };
+    return expect(requestHttp(inputObject)).resolves.toEqual(resultObject);
+  });
+  it('Catch', () => {
+    const inputObject = {
+      href: '#1-preámbulo',
+      text: '1. Preámbulo',
+      file: 'C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-social-network\\README.md'
+    };
+    const resultObject = {
+      href: '#1-preámbulo',
+      text: '1. Preámbulo',
+      file: 'C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-social-network\\README.md',
+      status: 'There was a problem with the Fetch request TypeError: Only absolute URLs are supported',
+      statusResponse: 'fail'
+    };
+    return requestHttp(inputObject).then((res) => expect(res).toEqual(resultObject));
   });
 });
 

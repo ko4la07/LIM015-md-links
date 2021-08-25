@@ -145,7 +145,7 @@ const requestHttp = (linkObj) => {
     });
   return fetchData;
 };
-links = [{ href:'https://www.google.com/', text:'hola google', file:'google' }, { href:'https://openclassrooms.com/en/courses/4309531-descubre-las-funciones-en-javascript/5108986-diferencia-entre-expresion-y-sentencia', text:'hola Openclassrooms', file:'Openclassrooms' }];
+// links = [{ href:'https://www.google.com/', text:'hola google', file:'google' }, { href:'https://openclassrooms.com/en/courses/4309531-descubre-las-funciones-en-javascript/5108986-diferencia-entre-expresion-y-sentencia', text:'hola Openclassrooms', file:'Openclassrooms' }];
 
 // console.log(requestHttp({ href:'https://www.google.com/', text:'hola google', link:'google' })); // retorna promesa
 
