@@ -5,7 +5,7 @@ const mdLinks = (iPath, options = {}) => {
     throw new Error('Invalid path');
   } else {
     return new Promise( (resolve) => {
-      if (options.validate === false || typeof(options) === 'undefined' ) {
+      if (options.validate === false) {
         resolve(functions.searchingLinks(iPath));
       } else if (options.validate === true) {
         Promise.all(functions.searchingLinks(iPath).map((objLink) => functions.requestHttp(objLink)))
@@ -16,7 +16,27 @@ const mdLinks = (iPath, options = {}) => {
 };
 
 // mdLinks('../samples').then((res) => console.log(res));
-mdLinks('./samples2',{ validate: true }).then((res) => console.log(res));
+// mdLinks('C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-social-network\\README.md',{ validate: true }).then((res) => console.log(res));
+// mdLinks('../samples',{ validate: true }).then((res) => console.log(res));
+
+// const mdLinks = (iPath, options = {}) => {
+//   return new Promise( (resolve) => {
+//     if (!functions.pathExist(iPath)) {
+//       const err = 'Invalid path';
+//       resolve(err);
+//     } else {
+//       if (options.validate === false) {
+//         resolve(functions.searchingLinks(iPath));
+//       } else if (options.validate === true) {
+//         Promise.all(functions.searchingLinks(iPath).map((objLink) => functions.requestHttp(objLink)))
+//           .then(res => resolve(res));
+//       }
+//     };
+//   });
+// };
+
+// mdLinks('../samples').then((res) => console.log(res));
+// mdLinks('C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-social-network\\README.md',{ validate: true }).then((res) => console.log(res));
 // mdLinks('../samples',{ validate: true }).then((res) => console.log(res));
 
 module.exports = { mdLinks };

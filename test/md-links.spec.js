@@ -72,7 +72,7 @@ describe('Searching links into markdown files', () => {
   test('It should be a function', () => {
     expect(typeof searchingLinks).toBe('function');
   });
-  it('It should return an array of objects with 3 properties: href, text, link', () => {
+  it('It should return an array of objects with 3 properties: href, text, file', () => {
     const resultArray = [
       {
         href: 'https://www.google.com',

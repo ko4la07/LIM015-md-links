@@ -70,7 +70,7 @@ const searchMdPaths = (iPath) => {
   }
   return arrayOfMdPaths;
 };
-// console.log(searchMdPaths('../samples'));
+// console.log(searchMdPaths('../samples/dirSample'));
 
 // Searching links into files .md with marked - renderer
 const searchingLinks = (iPath) => {
@@ -88,6 +88,7 @@ const searchingLinks = (iPath) => {
   });
   return arrayLinks;
 };
+
 // console.log(searchingLinks('C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\src\\samples2\\sample1.md'));
 // console.log(searchingLinks('.\\samples2\\sample1.md'));
 
@@ -137,7 +138,7 @@ const requestHttp = (linkObj) => {
         href: linkObj.href,
         text: linkObj.text.substring(0,50),
         file: linkObj.file,
-        status: 'There was a problem with the Fetch request:' + error,
+        status: 'There was a problem with the Fetch request ' + error,
         statusResponse: 'fail',
       };
       return objRes;
