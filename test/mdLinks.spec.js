@@ -51,7 +51,7 @@ describe('mdLinks test', () => {
     ];
     return expect(mdLinks('C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\src\\samples2\\sample1.md', { validate: false })).resolves.toEqual(resultArray);
   });
-  // it('If the path does not exist, it should return in console: Invalida Path', () => {
-  //   return expect(mdLinks('C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\src\\samples2\\sample.md')).resolves.toEqual('Invalid path');
-  // });
+  it('If the path does not exist, it should return in console: Invalida Path', () => {
+    return expect(mdLinks('C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\src\\samples2\\sample.md')).resolves.toEqual('Invalid path');
+  });
 });
