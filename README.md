@@ -45,7 +45,7 @@ Jest was used for unit tests.
 Install the library: 
 
 ```
-npm install xxxxxx
+npm install ko4la07-mdlinks
 ```
 ### How to use
 
@@ -242,4 +242,3 @@ Designing a library is a fundamental experience for any developer because it for
 ## Author
 
 - [Dayana Huaytalla Tineo](https://www.linkedin.com/in/dayana-huaytalla-tineo-71751387/)
-## Acknowledgments
