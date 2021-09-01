@@ -1,8 +1,8 @@
 {
-  "name": "md-links",
+  "name": "ko4la07-mdlinks",
   "version": "0.1.0",
-  "description": "This library reads files in Markdown format in search of links in order to know their status and report statistics",
-  "main": "index.js",
+  "description": "cli that looks for links within Markdown files and provides statistics",
+  "main": "src/index.js",
   "bin": {
     "md-links": "src/cli.js"
   },
