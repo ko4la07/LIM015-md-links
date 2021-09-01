@@ -1,3 +1,4 @@
+const chalk = require('chalk');
 // Unique links
 const uniquesLinks = (arrayLinks) => {
   const total = arrayLinks.length; // total links
@@ -5,8 +6,8 @@ const uniquesLinks = (arrayLinks) => {
   const setLinks = new Set(links);
   const uniques = setLinks.size; // uniques links
   let stats = [];
-  stats += 'Total: ' + total + '\n';
-  stats += 'Unique: ' + uniques ;
+  stats += chalk.bold.cyan(`Total: ${total}`) + '\n';
+  stats += chalk.bold.green(`Unique: ${uniques}`) ;
   // console.log(uniques);
   return stats;
 };
@@ -51,9 +52,12 @@ const brokenLinks = (arrayLinks) => {
   const okLinks = arrayLinks.filter(predicado);
   const totalBroken = lengthArrayLinks - okLinks.length;
   let stats = [];
-  stats += 'Broken: ' + totalBroken;
-  // stats += 'Uniques: ' + uniques + '\n';
+  stats += chalk.bold.red(`Broken: ${totalBroken}`);
   return stats;
 };
 
 // console.log(brokenLinks(inputArray));
+module.exports = {
+  uniquesLinks,
+  brokenLinks
+};

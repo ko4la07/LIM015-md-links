@@ -124,7 +124,7 @@ describe('Http request', () => {
       href: '#1-preámbulo',
       text: '1. Preámbulo',
       file: 'C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-social-network\\README.md',
-      status: 'There was a problem with the Fetch request TypeError: Only absolute URLs are supported',
+      status: 'There was a problem with the Fetch request. TypeError: Only absolute URLs are supported',
       statusResponse: 'fail'
     };
     return requestHttp(inputObject).then((res) => expect(res).toEqual(resultObject));
