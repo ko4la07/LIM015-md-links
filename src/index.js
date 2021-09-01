@@ -138,7 +138,7 @@ const requestHttp = (linkObj) => {
         href: linkObj.href,
         text: linkObj.text.substring(0,50),
         file: linkObj.file,
-        status: 'There was a problem with the Fetch request ' + error,
+        status: 'There was a problem with the Fetch request. ' + error,
         statusResponse: 'fail',
       };
       return objRes;
