@@ -27,7 +27,7 @@ if (argValue.length === 1) {
     mdLinks(argValue[0])
       .then((arrayResponse) => {
         if (arrayResponse === 'Invalid path') {
-          console.log(chalk.bold.redBright(' （ノT＿T)ノ ＾┻━┻ -=ﾆ=一＝三 Invalid path.'));
+          console.log(chalk.redBright('（ノT＿T)ノ ＾┻━┻ -=ﾆ=一＝三 Invalid path.'));
         } else {
           if (arrayResponse.length !== 0) {
             arrayResponse.forEach((element) => {
