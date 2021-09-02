@@ -1,4 +1,4 @@
-#! / usr / bin / env node
+#!/usr/bin/env node
 
 const { mdLinks } = require('./mdlinks.js');
 const { uniquesLinks, brokenLinks } = require('./options.js');
