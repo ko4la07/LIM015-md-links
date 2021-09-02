@@ -19,7 +19,6 @@ test('fetch-mock-test test status 200', () => {
   // fetch.mockReturnValue(Promise.resolve(new Response({ status: 200 }))); // Podemos poner el objeto resultado
   fetch.mockReturnValue(Promise.resolve({ status: 200 })); // Podemos escribir la respuesta de fetch
   return requestHttp(inputObject).then((result) => {
-    // console.log(result);
     expect(result).toEqual(resultObject);
   });
 });

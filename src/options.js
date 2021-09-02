@@ -8,42 +8,8 @@ const uniquesLinks = (arrayLinks) => {
   let stats = [];
   stats += chalk.bold.cyan(`Total: ${total}`) + '\n';
   stats += chalk.bold.green(`Unique: ${uniques}`) ;
-  // console.log(uniques);
   return stats;
 };
-
-const inputArray = [
-  {
-    href: 'https://www.google.com',
-    text: 'Google',
-    file: 'C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\src\\samples2\\sample1.md',
-    status: 200,
-    statusResponse: 'ok'
-  },
-  {
-    href: 'https://es.stackoverflow.com',
-    text: 'stackoverflow',
-    file: 'C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\src\\samples2\\sample1.md',
-    status: 200,
-    statusResponse: 'ok'
-  },
-  {
-    href: 'https://www.google.com',
-    text: 'Google',
-    file: 'C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\src\\samples2\\sample1.md',
-    status: 200,
-    statusResponse: 'ok'
-  },
-  {
-    href: 'https://openclassrooms.com/en/courses/4309531-descubre-las-funciones-en-javascript/5108986-diferencia-entre-expresion-y-sentencia',
-    text: 'Openclassrooms',
-    file: 'C:\\Users\\dayan\\Desktop\\Proyectos\\Laboratoria\\LIM015-md-links\\samples\\sample2.md',
-    status: 410,
-    statusResponse: 'fail'
-  }
-];
-
-// console.log(uniquesLinks(inputArray));
 
 // Broken links
 const brokenLinks = (arrayLinks) => {
@@ -56,7 +22,6 @@ const brokenLinks = (arrayLinks) => {
   return stats;
 };
 
-// console.log(brokenLinks(inputArray));
 module.exports = {
   uniquesLinks,
   brokenLinks

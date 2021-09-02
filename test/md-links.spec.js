@@ -130,13 +130,3 @@ describe('Http request', () => {
     return requestHttp(inputObject).then((res) => expect(res).toEqual(resultObject));
   });
 });
-
-// const mdLinks = require('../');
-
-// describe('mdLinks', () => {
-
-//   it('should...', () => {
-//     console.log('FIX ME!');
-//   });
-
-// });

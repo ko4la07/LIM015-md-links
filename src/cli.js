@@ -4,8 +4,6 @@ const { mdLinks } = require('./mdlinks.js');
 const { uniquesLinks, brokenLinks } = require('./options.js');
 const chalk = require('chalk');
 
-// console.log(chalk.blue('Hello world!')); // example use chalk
-
 const argValue = process.argv.slice(2);
 // console.log(argValue); // array of argument values
 const templateHelp = `

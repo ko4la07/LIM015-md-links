@@ -47,6 +47,12 @@ Install the library:
 ```
 npm install ko4la07-mdlinks
 ```
+or you can also download it from github:
+
+```
+npm install ko4la07/LIM015-md-links
+```
+
 ### How to use
 
 ### Through the Command Line Interface (CLI) 

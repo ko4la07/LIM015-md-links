@@ -10,7 +10,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "cli": " node src/cli.js"
   },
   "repository": {
     "type": "git",
