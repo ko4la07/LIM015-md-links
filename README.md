@@ -247,4 +247,4 @@ Designing a library is a fundamental experience for any developer because it for
 
 ## Author
 
-- [Dayana Huaytalla Tineo](https://www.linkedin.com/in/dayana-huaytalla-tineo-71751387/)
+- [Dayana Huaytalla Tineo](https://www.linkedin.com/in/dhuaytalla)
